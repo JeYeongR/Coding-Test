@@ -1,6 +1,3 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
