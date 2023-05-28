@@ -5,7 +5,7 @@ class Solution {
         char temp = chars[num1];
         chars[num1] = chars[num2];
         chars[num2] = temp;
-        
-        return String.copyValueOf(chars);
+
+        return String.valueOf(chars);
     }
 }
