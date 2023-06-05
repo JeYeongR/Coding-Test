@@ -7,12 +7,11 @@ class Solution {
         while(num < length) {
             num *= 2;
         }
-        length = num;
         
-        int[] answer = new int[length];
+        int[] answer = new int[num];
         Arrays.fill(answer, 0);
         
-        for(int i=0; i<arr.length; i++) {
+        for(int i=0; i<length; i++) {
             answer[i] = arr[i];
         }
         
