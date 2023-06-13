@@ -10,21 +10,19 @@ class Solution {
                 queue.add(score[i]);
                 answer[i] = queue.peek();
             }
-            
-            return answer;
         } else {
             for (int i = 0; i < k; i++) {
                 queue.add(score[i]);
                 answer[i] = queue.peek();
             }
-        }
-
-        for (int i = k; i < score.length; i++) {
-            if (queue.peek() < score[i]) {
-                queue.add(score[i]);
-                queue.remove(queue.peek());
+            
+            for (int i = k; i < score.length; i++) {
+                if (queue.peek() < score[i]) {
+                    queue.add(score[i]);
+                    queue.poll();
+                }
+                answer[i] = queue.peek();
             }
-            answer[i] = queue.peek();
         }
 
         return answer;
