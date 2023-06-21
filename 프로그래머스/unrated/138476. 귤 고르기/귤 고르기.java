@@ -4,15 +4,12 @@ class Solution {
     public int solution(int k, int[] tangerine) {
         int answer = 0;
         Map<Integer, Integer> map = new HashMap<>();
-        List<Integer> list = new ArrayList<>();
 
         for (int num : tangerine) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
 
-        for (int num : map.keySet()) {
-            list.add(map.get(num));
-        }
+        List<Integer> list = new ArrayList<>(map.values());
 
         list.sort(Comparator.reverseOrder());
 
