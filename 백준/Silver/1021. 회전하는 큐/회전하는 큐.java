@@ -29,15 +29,15 @@ public class Main {
                 }
             }
 
-            int half = deque.size() % 2 == 0 ? deque.size() / 2 : deque.size() / 2 + 1;
-            if (idx < half) {
+            int half =  deque.size() / 2;
+            if (idx > half) {
                 while (deque.peek() != findArr[i]) {
-                    deque.offerLast(deque.pollFirst());
+                    deque.offerFirst(deque.pollLast());
                     count++;
                 }
             } else {
                 while (deque.peek() != findArr[i]) {
-                    deque.offerFirst(deque.pollLast());
+                    deque.offerLast(deque.pollFirst());
                     count++;
                 }
             }
