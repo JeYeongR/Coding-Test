@@ -28,24 +28,22 @@ public class Main {
         int answerIdx = 0;
         int[] answer = new int[N + M];
         while (answerIdx != N + M) {
-            if (aIdx < N && bIdx < M) {
-                if (arrA[aIdx] < arrB[bIdx]) {
-                    answer[answerIdx] = arrA[aIdx++];
-                } else {
-                    answer[answerIdx] = arrB[bIdx++];
-                }
+            int num;
+            if (aIdx < N && bIdx < M && arrA[aIdx] < arrB[bIdx]) {
+                num = arrA[aIdx++];
             } else if (bIdx == M) {
-                answer[answerIdx] = arrA[aIdx++];
+                num = arrA[aIdx++];
             } else {
-                answer[answerIdx] = arrB[bIdx++];
+                num = arrB[bIdx++];
             }
-            answerIdx++;
+
+            answer[answerIdx++] = num;
         }
 
         for (int num : answer) {
             bw.write(num + " ");
         }
-        
+
         bw.flush();
     }
 }
