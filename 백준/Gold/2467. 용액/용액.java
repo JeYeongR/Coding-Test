@@ -29,6 +29,12 @@ public class Main {
                 answer[1] = arr[rt];
             }
 
+            if (sum == 0) {
+                answer[0] = arr[lt];
+                answer[1] = arr[rt];
+                break;
+            }
+
             if (arr[lt] + arr[rt] > 0) rt--;
             else lt++;
         }
