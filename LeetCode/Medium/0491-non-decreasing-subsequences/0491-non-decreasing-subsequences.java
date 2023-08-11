@@ -12,14 +12,13 @@ class Solution {
     }
 
     private void dfs(int start, ArrayList<Integer> list) {
-        if (list.size() > 1)
-            answer.add(new ArrayList<>(list));
+        if (list.size() >= 2) answer.add(new ArrayList<>(list));
 
         Set<Integer> used = new HashSet<>();
 
         for (int i = start; i < nums.length; ++i) {
-            if (used.contains(nums[i]))
-                continue;
+            if (used.contains(nums[i])) continue;
+            
             if (list.isEmpty() || nums[i] >= list.get(list.size() - 1)) {
                 used.add(nums[i]);
                 list.add(nums[i]);
