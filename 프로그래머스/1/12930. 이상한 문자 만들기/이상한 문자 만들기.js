@@ -1,9 +1,3 @@
 function solution(s) {
-    return s.split(" ").map(str => {
-        const strArr = str.split("");
-        for(let i = 0; i < strArr.length; i++) {
-            strArr[i] = i%2==0 ? strArr[i].toUpperCase() : strArr[i].toLowerCase();
-        }
-        return strArr.join("");
-    }).join(" ");;
+    return s.split(" ").map(str => str.split("").map((e, i) => (e = i % 2 == 0 ? e.toUpperCase() : e.toLowerCase())).join("")).join(" ");
 }
