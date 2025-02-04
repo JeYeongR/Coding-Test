@@ -1,61 +1,76 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
+    private static final int DNA_TYPES = 4; // A, C, G, T
+    private static int[] required;
+    private static int[] current;
+    private static int satisfiedConditions;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int S = Integer.parseInt(st.nextToken());
-        int P = Integer.parseInt(st.nextToken());
-
-        String DNA = br.readLine();
+        
+        int totalLength = Integer.parseInt(st.nextToken());
+        int windowSize = Integer.parseInt(st.nextToken());
+        char[] dna = br.readLine().toCharArray();
+        
+        required = new int[DNA_TYPES];
+        current = new int[DNA_TYPES];
+        satisfiedConditions = 0;
+        
         st = new StringTokenizer(br.readLine());
-        int A = Integer.parseInt(st.nextToken());
-        int C = Integer.parseInt(st.nextToken());
-        int G = Integer.parseInt(st.nextToken());
-        int T = Integer.parseInt(st.nextToken());
-
-        int answer = 0;
-        Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < P; i++) {
-            char rtChar = DNA.charAt(i);
-            map.put(rtChar, map.getOrDefault(rtChar, 0) + 1);
+        for (int i = 0; i < DNA_TYPES; i++) {
+            required[i] = Integer.parseInt(st.nextToken());
+            if (required[i] == 0) satisfiedConditions++;
         }
 
-        if (checkDNA(map, A, C, G, T)) answer++;
+        int validCount = 0;
+        
+        for (int i = 0; i < windowSize; i++) {
+            addChar(dna[i]);
+        }
+        if (satisfiedConditions == DNA_TYPES) validCount++;
 
-        int lt = 0;
-        for (int rt = P; rt < S; rt++) {
-            char ltChar = DNA.charAt(lt++);
-            map.put(ltChar, map.get(ltChar) - 1);
-
-            if (map.get(ltChar) == 0) map.remove(ltChar);
-
-            char rtChar = DNA.charAt(rt);
-            map.put(rtChar, map.getOrDefault(rtChar, 0) + 1);
-
-            if (checkDNA(map, A, C, G, T)) answer++;
-
+        for (int i = windowSize; i < totalLength; i++) {
+            int removedIndex = i - windowSize;
+            addChar(dna[i]);
+            removeChar(dna[removedIndex]);
+            if (satisfiedConditions == DNA_TYPES) validCount++;
         }
 
-        System.out.println(answer);
+        System.out.println(validCount);
+        br.close();
     }
 
-    public static boolean checkDNA(Map<Character, Integer> map, int A, int C, int G, int T) {
-        if ((A != 0 && !map.containsKey('A')) || (map.containsKey('A') && map.get('A') < A)) return false;
+    private static void addChar(char c) {
+        int idx = getIndex(c);
+        current[idx]++;
+        if (current[idx] == required[idx]) {
+            satisfiedConditions++;
+        }
+    }
 
-        if ((C != 0 && !map.containsKey('C')) || (map.containsKey('C') && map.get('C') < C)) return false;
+    private static void removeChar(char c) {
+        int idx = getIndex(c);
+        if (current[idx] == required[idx]) {
+            satisfiedConditions--;
+        }
+        current[idx]--;
+    }
 
-        if ((G != 0 && !map.containsKey('G')) || (map.containsKey('G') && map.get('G') < G)) return false;
-
-        if ((T != 0 && !map.containsKey('T')) || (map.containsKey('T') && map.get('T') < T)) return false;
-
-        return true;
+    private static int getIndex(char c) {
+		switch (c) {
+			case 'A':
+				return 0;
+			case 'C':
+				return 1;
+			case 'G':
+				return 2;
+			case 'T':
+				return 3;
+			default:
+				throw new IllegalArgumentException("Invalid DNA character");
+		}
     }
 }
