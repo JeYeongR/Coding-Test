@@ -1,23 +1,21 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-
-        int[] arr = new int[N];
-        int max = 0;
+        int A[] = new int[N];
         for (int i = 0; i < N; i++) {
-            arr[i] = sc.nextInt();
-            max = Math.max(max, arr[i]);
+            A[i] = sc.nextInt();
         }
-
-        float sum = 0;
+        long sum = 0;
+        long max = 0;
         for (int i = 0; i < N; i++) {
-            sum += (float) arr[i] / max * 100;
+            if (A[i] > max) {
+                max = A[i];
+            }
+            sum = sum + A[i];
         }
-
-        System.out.println(sum / N);
+        System.out.println(sum * 100.0 / max / N);
     }
 }
