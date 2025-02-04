@@ -1,28 +1,27 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        int N = Integer.parseInt(st.nextToken());
-
-        int answer = 0;
-        for (int lt = 1; lt <= N; lt++) {
-            int sum = 0;
-            for (int rt = lt; rt <= N; rt++) {
-                sum += rt;
-
-                if (sum == N) answer++;
-
-                if (sum > N) break;
-            }
-        }
-
-        System.out.println(answer);
-    }
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+		int N = sc.nextInt();
+		int count = 1;
+		int start_index = 1;
+		int end_index = 1;
+		int sum = 1;
+		while (end_index != N) {
+			if (sum == N) {
+				count++;
+				end_index++;
+				sum += end_index;
+			} else if (sum > N) {
+				sum -= start_index;
+				start_index++;
+			} else {
+				end_index++;
+				sum += end_index;
+			}
+		}
+		System.out.println(count);
+	}
 }
